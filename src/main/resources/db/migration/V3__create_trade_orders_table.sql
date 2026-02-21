@@ -1,0 +1,45 @@
+CREATE TABLE trade_orders (
+    id BIGSERIAL PRIMARY KEY,
+    order_id VARCHAR(50) UNIQUE NOT NULL,
+    symbol VARCHAR(20) NOT NULL,
+    side VARCHAR(4) NOT NULL,
+    quantity INTEGER NOT NULL,
+    intended_price DECIMAL(12,4) NOT NULL,
+    executed_price DECIMAL(12,4),
+    stop_loss DECIMAL(12,4),
+    target_price_1 DECIMAL(12,4),
+    target_price_2 DECIMAL(12,4),
+    strategy VARCHAR(50) NOT NULL,
+    reasoning TEXT,
+    confidence_score INTEGER,
+    rsi_14 DECIMAL(6,2),
+    macd_histogram DECIMAL(10,4),
+    volume_ratio DECIMAL(6,2),
+    nav_premium_discount_pct DECIMAL(8,4),
+    sma_20 DECIMAL(12,4),
+    position_pct_of_portfolio DECIMAL(6,2),
+    risk_pct_of_portfolio DECIMAL(6,2),
+    cash_remaining_pct DECIMAL(6,2),
+    sector_exposure_pct DECIMAL(6,2),
+    all_risk_checks_passed BOOLEAN,
+    status VARCHAR(20) NOT NULL,
+    execution_method VARCHAR(20),
+    approval_method VARCHAR(20),
+    approval_response_seconds INTEGER,
+    screenshots TEXT[],
+    error_message TEXT,
+    exit_price DECIMAL(12,4),
+    exit_date TIMESTAMP,
+    pnl_naira DECIMAL(14,2),
+    pnl_pct DECIMAL(8,4),
+    holding_days INTEGER,
+    exit_reason VARCHAR(30),
+    created_at TIMESTAMP DEFAULT NOW(),
+    executed_at TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT NOW()
+);
+
+CREATE INDEX idx_orders_status ON trade_orders(status);
+CREATE INDEX idx_orders_symbol ON trade_orders(symbol);
+CREATE INDEX idx_orders_strategy ON trade_orders(strategy);
+CREATE INDEX idx_orders_created ON trade_orders(created_at DESC);

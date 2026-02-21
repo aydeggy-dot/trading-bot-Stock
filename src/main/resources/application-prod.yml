@@ -1,0 +1,21 @@
+spring:
+  jpa:
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+  datasource:
+    hikari:
+      maximum-pool-size: 15
+      minimum-idle: 5
+
+meritrade:
+  headless: true
+  slow-mo-ms: 500
+
+logging:
+  level:
+    com.ngxbot: INFO
+    org.hibernate.SQL: WARN
+  file:
+    name: /var/log/ngx-bot/application.log
