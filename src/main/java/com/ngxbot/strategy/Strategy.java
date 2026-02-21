@@ -36,4 +36,18 @@ public interface Strategy {
      * @return list of symbols to evaluate
      */
     List<String> getTargetSymbols();
+
+    /**
+     * @return the portfolio pool this strategy belongs to (CORE or SATELLITE)
+     */
+    default StrategyPool getPool() {
+        return StrategyPool.SATELLITE;
+    }
+
+    /**
+     * @return the market this strategy operates on (NGX, US, or BOTH)
+     */
+    default StrategyMarket getMarket() {
+        return StrategyMarket.NGX;
+    }
 }

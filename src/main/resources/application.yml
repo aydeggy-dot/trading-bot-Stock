@@ -165,6 +165,34 @@ strategies:
     atr-target-multiplier: 4.0
   pension-flow:
     enabled: true
+  us-earnings-momentum:
+    enabled: true
+    buy-window-days-after-earnings: 3
+    min-eps-surprise-pct: 5.0
+    min-revenue-surprise-pct: 2.0
+  us-etf-rotation:
+    enabled: true
+    rotation-frequency: MONTHLY
+    top-n-sectors: 3
+  dividend-accumulation:
+    enabled: true
+    ngx-min-trailing-yield-pct: 6.0
+    us-min-trailing-yield-pct: 2.5
+  value-accumulation:
+    enabled: true
+    min-fundamental-score: 50
+  dca:
+    enabled: true
+    ngx-execution-day: 5
+    us-execution-day: 10
+    ngx-monthly-budget: 150000
+    us-monthly-budget: 300
+  currency-hedge:
+    enabled: true
+    gold-target-pct: 10.0
+    naira-weakness-threshold-30d-pct: 5.0
+  sector-rotation:
+    enabled: true
 
 logging:
   level:
