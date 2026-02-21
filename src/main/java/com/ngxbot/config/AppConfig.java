@@ -10,7 +10,9 @@ import org.springframework.context.annotation.Configuration;
     MeritradeProperties.class,
     NotificationProperties.class,
     EodhdProperties.class,
-    StrategyProperties.class
+    StrategyProperties.class,
+    AiProperties.class,
+    DiscoveryProperties.class
 })
 public class AppConfig {
 }

@@ -115,6 +115,38 @@ notification:
     timeout-minutes: 5
     default-on-timeout: REJECT
 
+ai:
+  enabled: ${AI_ENABLED:false}
+  api-key: ${AI_API_KEY:}
+  base-url: https://api.anthropic.com
+  default-model: claude-haiku-4-5-20251001
+  deep-analysis-model: claude-sonnet-4-6
+  max-retries: 2
+  timeout-seconds: 30
+  budget:
+    daily-limit-usd: 5.00
+    monthly-limit-usd: 100.00
+  deep-analysis-triggers:
+    - EARNINGS_RELEASE
+    - ACQUISITION_MERGER
+    - CBN_POLICY
+
+discovery:
+  enabled: true
+  max-active-watchlist-size: 30
+  max-observation-slots: 20
+  observation-period-days: 14
+  demotion-cooldown-days: 90
+  no-signal-demotion-days: 60
+  min-fundamental-score: 50.0
+  screener:
+    min-market-cap-millions: 10.0
+    min-avg-daily-volume: 10000
+    min-eps: 0.0
+    max-pe-ratio: 30.0
+    min-revenue-growth-pct: 5.0
+    max-debt-to-equity: 2.0
+
 strategies:
   etf-nav-arbitrage:
     enabled: true

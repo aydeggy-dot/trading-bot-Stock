@@ -39,6 +39,15 @@ public class NewsItem {
     @Column(name = "summary", columnDefinition = "TEXT")
     private String summary;
 
+    @Column(name = "body", columnDefinition = "TEXT")
+    private String body;
+
+    @Column(name = "event_types", columnDefinition = "TEXT[]")
+    private String[] eventTypes;
+
+    @Column(name = "impact_score")
+    private Integer impactScore;
+
     @Column(name = "is_processed")
     @Builder.Default
     private Boolean isProcessed = false;
