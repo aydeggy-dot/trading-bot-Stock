@@ -147,6 +147,44 @@ discovery:
     min-revenue-growth-pct: 5.0
     max-debt-to-equity: 2.0
 
+longterm:
+  core:
+    target-allocations:
+      "ZENITHBANK:NGX": 10.0
+      "GTCO:NGX": 8.0
+      "ACCESSCORP:NGX": 5.0
+      "UBA:NGX": 4.0
+      "DANGCEM:NGX": 6.0
+      "SEPLAT:NGX": 5.0
+      "MTNN:NGX": 7.0
+      "NEWGOLD:NGX": 5.0
+      "VOO:US": 15.0
+      "SCHD:US": 10.0
+      "BND:US": 8.0
+      "GLD:US": 5.0
+      "VXUS:US": 7.0
+      "VNQ:US": 5.0
+  dca:
+    enabled: true
+    ngx-budget-naira-monthly: 150000
+    us-budget-usd-monthly: 300
+    ngx-execution-day: 5
+    us-execution-day: 10
+    fallback-day-if-weekend: NEXT
+    top-up-on-dip-pct: 10.0
+  dividend:
+    reinvest: true
+    reinvest-into: SAME_STOCK
+    track-ex-dates: true
+    alert-days-before-ex-date: 7
+    us-withholding-tax-pct: 30.0
+  rebalance:
+    frequency: QUARTERLY
+    drift-threshold-pct: 10.0
+    method: THRESHOLD
+    use-new-cash-first: true
+    require-approval: true
+
 strategies:
   etf-nav-arbitrage:
     enabled: true

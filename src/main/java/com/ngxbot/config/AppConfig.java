@@ -12,7 +12,8 @@ import org.springframework.context.annotation.Configuration;
     EodhdProperties.class,
     StrategyProperties.class,
     AiProperties.class,
-    DiscoveryProperties.class
+    DiscoveryProperties.class,
+    LongtermProperties.class
 })
 public class AppConfig {
 }

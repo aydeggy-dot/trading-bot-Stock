@@ -53,6 +53,21 @@ public class Position {
     @Column(name = "unrealized_pnl_pct", precision = 8, scale = 4)
     private BigDecimal unrealizedPnlPct;
 
+    @Column(name = "market", length = 5)
+    private String market;
+
+    @Column(name = "currency", length = 3)
+    private String currency;
+
+    @Column(name = "pool", length = 10)
+    private String pool;
+
+    @Column(name = "fx_rate_at_entry", precision = 10, scale = 4)
+    private BigDecimal fxRateAtEntry;
+
+    @Column(name = "target_weight_pct", precision = 6, scale = 2)
+    private BigDecimal targetWeightPct;
+
     @Column(name = "is_open")
     @Builder.Default
     private Boolean isOpen = true;
