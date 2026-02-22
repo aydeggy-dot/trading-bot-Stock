@@ -1,21 +1,58 @@
 spring:
-  jpa:
-    show-sql: false
-    properties:
-      hibernate:
-        format_sql: false
   datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/ngx_trading}
+    username: ${DB_USERNAME:trader}
+    password: ${DB_PASSWORD:changeme}
     hikari:
       maximum-pool-size: 15
       minimum-idle: 5
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: false
+    open-in-view: false
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+
+server:
+  port: 8080
+  shutdown: graceful
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,flyway
+  endpoint:
+    health:
+      show-details: always
 
 meritrade:
   headless: true
-  slow-mo-ms: 500
+  slow-mo-ms: 300
+  screenshot-dir: /app/screenshots
+  session-max-hours: 4
+
+notification:
+  whatsapp:
+    waha-base-url: http://waha:3000
 
 logging:
   level:
     com.ngxbot: INFO
     org.hibernate.SQL: WARN
+    org.flywaydb: INFO
+    org.springframework: WARN
   file:
-    name: /var/log/ngx-bot/application.log
+    name: /app/logs/trading-bot.log
+  logback:
+    rollingpolicy:
+      max-file-size: 50MB
+      max-history: 30
