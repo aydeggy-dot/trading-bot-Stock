@@ -1,15 +1,12 @@
+## Integration test profile — uses real PostgreSQL + real external services
+## Activated via: -Dspring.profiles.active=integration
+
 spring:
-  application:
-    name: ngx-trading-bot
   datasource:
     url: jdbc:postgresql://localhost:5432/ngx_trading
     username: ${DB_USERNAME:trader}
     password: ${DB_PASSWORD:changeme}
     driver-class-name: org.postgresql.Driver
-    hikari:
-      maximum-pool-size: 10
-      minimum-idle: 5
-      connection-timeout: 30000
   jpa:
     hibernate:
       ddl-auto: validate
@@ -28,16 +25,7 @@ spring:
       fail-on-unknown-properties: false
 
 server:
-  port: 8080
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health,info,metrics,flyway
-  endpoint:
-    health:
-      show-details: always
+  port: 8081
 
 eodhd:
   api-key: ${EODHD_API_KEY:}
@@ -53,21 +41,9 @@ trading:
     etfs:
       - STANBICETF30
       - VETGRIF30
-      - MERGROWTH
-      - MERVALUE
-      - SIAMLETF40
-      - NEWGOLD
     large-caps:
       - ZENITHBANK
       - GTCO
-      - ACCESSCORP
-      - UBA
-      - FBNH
-      - DANGCEM
-      - BUACEMENT
-      - SEPLAT
-      - ARADEL
-      - MTNN
 
 risk:
   max-risk-per-trade-pct: 2.0
@@ -81,16 +57,17 @@ risk:
   max-volume-participation-pct: 10.0
 
 meritrade:
+  enabled: true
   base-url: https://app.trovefinance.com/login
   username: ${MERITRADE_USERNAME:}
   password: ${MERITRADE_PASSWORD:}
-  headless: true
-  slow-mo-ms: 500
-  screenshot-dir: ./screenshots
+  headless: false
+  slow-mo-ms: 1000
+  screenshot-dir: ./screenshots/integration
   session-max-hours: 5
   order-confirmation-delay-seconds: 3
-  navigation-timeout-ms: 30000
-  screenshot-retention-hours: 72
+  navigation-timeout-ms: 45000
+  screenshot-retention-hours: 168
   selectors:
     login-username: "input[name='email']"
     login-password: "input[type='password']"
@@ -113,7 +90,7 @@ meritrade:
 
 otp:
   email:
-    enabled: ${OTP_EMAIL_ENABLED:false}
+    enabled: ${OTP_EMAIL_ENABLED:true}
     imap-host: imap.gmail.com
     imap-port: 993
     username: ${OTP_EMAIL_USERNAME:}
@@ -127,7 +104,7 @@ notification:
     enabled: true
     waha-base-url: http://localhost:3000
     waha-session: default
-    waha-api-key: ${WAHA_API_KEY:}
+    waha-api-key: ${WAHA_API_KEY:ngx-waha-local-key}
     chat-id: ${WHATSAPP_CHAT_ID:}
   telegram:
     enabled: true
@@ -138,7 +115,7 @@ notification:
     default-on-timeout: REJECT
 
 ai:
-  enabled: ${AI_ENABLED:false}
+  enabled: ${AI_ENABLED:true}
   api-key: ${AI_API_KEY:}
   base-url: https://api.anthropic.com
   default-model: claude-haiku-4-5-20251001
@@ -174,20 +151,8 @@ longterm:
     target-allocations:
       "ZENITHBANK:NGX": 10.0
       "GTCO:NGX": 8.0
-      "ACCESSCORP:NGX": 5.0
-      "UBA:NGX": 4.0
-      "DANGCEM:NGX": 6.0
-      "SEPLAT:NGX": 5.0
-      "MTNN:NGX": 7.0
-      "NEWGOLD:NGX": 5.0
-      "VOO:US": 15.0
-      "SCHD:US": 10.0
-      "BND:US": 8.0
-      "GLD:US": 5.0
-      "VXUS:US": 7.0
-      "VNQ:US": 5.0
   dca:
-    enabled: true
+    enabled: false
     ngx-budget-naira-monthly: 150000
     us-budget-usd-monthly: 300
     ngx-execution-day: 5
@@ -195,7 +160,7 @@ longterm:
     fallback-day-if-weekend: NEXT
     top-up-on-dip-pct: 10.0
   dividend:
-    reinvest: true
+    reinvest: false
     reinvest-into: SAME_STOCK
     track-ex-dates: true
     alert-days-before-ex-date: 7
@@ -209,55 +174,30 @@ longterm:
 
 strategies:
   etf-nav-arbitrage:
-    enabled: true
-    entry-discount-pct: 10.0
-    exit-premium-pct: 20.0
-    extreme-premium-pct: 50.0
-    max-rsi: 60
-    min-volume-ratio: 1.2
+    enabled: false
   momentum-breakout:
-    enabled: true
-    volume-spike-ratio: 3.0
-    min-rsi: 40
-    max-rsi: 65
-    sma-period: 20
-    atr-stop-multiplier: 2.0
-    atr-target-multiplier: 4.0
+    enabled: false
   pension-flow:
-    enabled: true
+    enabled: false
   us-earnings-momentum:
-    enabled: true
-    buy-window-days-after-earnings: 3
-    min-eps-surprise-pct: 5.0
-    min-revenue-surprise-pct: 2.0
+    enabled: false
   us-etf-rotation:
-    enabled: true
-    rotation-frequency: MONTHLY
-    top-n-sectors: 3
+    enabled: false
   dividend-accumulation:
-    enabled: true
-    ngx-min-trailing-yield-pct: 6.0
-    us-min-trailing-yield-pct: 2.5
+    enabled: false
   value-accumulation:
-    enabled: true
-    min-fundamental-score: 50
+    enabled: false
   dca:
-    enabled: true
-    ngx-execution-day: 5
-    us-execution-day: 10
-    ngx-monthly-budget: 150000
-    us-monthly-budget: 300
+    enabled: false
   currency-hedge:
-    enabled: true
-    gold-target-pct: 10.0
-    naira-weakness-threshold-30d-pct: 5.0
+    enabled: false
   sector-rotation:
-    enabled: true
+    enabled: false
 
 logging:
   level:
-    com.ngxbot: INFO
-    org.hibernate.SQL: WARN
+    com.ngxbot: DEBUG
+    org.hibernate.SQL: DEBUG
     org.flywaydb: INFO
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"

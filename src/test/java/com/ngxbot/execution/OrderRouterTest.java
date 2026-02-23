@@ -74,7 +74,7 @@ class OrderRouterTest {
     @Test
     @DisplayName("OtpHandler tracks pending OTP state correctly")
     void otpHandler_tracksPendingState() {
-        OtpHandler otpHandler = new OtpHandler(notificationRouter);
+        OtpHandler otpHandler = new OtpHandler(notificationRouter, null);
 
         assertThat(otpHandler.hasPendingOtp()).isFalse();
         assertThat(otpHandler.getMaxRetries()).isEqualTo(3);

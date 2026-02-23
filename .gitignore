@@ -29,3 +29,6 @@ logs/
 
 # Playwright
 playwright/.cache/
+
+# Claude Code
+.claude/

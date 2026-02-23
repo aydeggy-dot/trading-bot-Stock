@@ -27,6 +27,7 @@ services:
     environment:
       WHATSAPP_DEFAULT_ENGINE: WEBJS
       WAHA_PRINT_QR: "true"
+      WAHA_API_KEY: "ngx-waha-local-key"
     volumes:
       - waha_data:/app/.sessions
     restart: unless-stopped

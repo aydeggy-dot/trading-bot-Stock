@@ -36,7 +36,7 @@ public class NewsRssScraper {
             "ZENITHBANK", "GTCO", "ACCESSCORP", "UBA", "FBNH",
             "DANGCEM", "BUACEMENT", "SEPLAT", "ARADEL", "MTNN",
             "STANBICETF30", "VETGRIF30", "MERGROWTH", "MERVALUE",
-            "ZENITH", "ACCESS", "DANGOTE", "MTN", "SEPLAT",
+            "ZENITH", "ACCESS", "DANGOTE", "MTN",
             // Common name variants
             "NGX", "NSE", "STOCK", "DIVIDEND", "EARNINGS"
     );

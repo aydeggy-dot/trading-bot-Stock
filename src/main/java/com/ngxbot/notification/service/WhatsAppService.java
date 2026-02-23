@@ -24,9 +24,13 @@ public class WhatsAppService {
     public WhatsAppService(NotificationProperties notificationProperties,
                            WebClient.Builder webClientBuilder) {
         this.notificationProperties = notificationProperties;
-        this.wahaWebClient = webClientBuilder
-                .baseUrl(notificationProperties.getWhatsapp().getWahaBaseUrl())
-                .build();
+        NotificationProperties.WhatsApp wa = notificationProperties.getWhatsapp();
+        WebClient.Builder builder = webClientBuilder
+                .baseUrl(wa.getWahaBaseUrl());
+        if (wa.getWahaApiKey() != null && !wa.getWahaApiKey().isBlank()) {
+            builder.defaultHeader("X-Api-Key", wa.getWahaApiKey());
+        }
+        this.wahaWebClient = builder.build();
     }
 
     /**

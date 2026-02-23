@@ -17,6 +17,7 @@ public class NotificationProperties {
         private boolean enabled = true;
         private String wahaBaseUrl = "http://localhost:3000";
         private String wahaSession = "default";
+        private String wahaApiKey = "";
         private String chatId;
     }
 

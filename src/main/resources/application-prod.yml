@@ -39,6 +39,8 @@ meritrade:
   slow-mo-ms: 300
   screenshot-dir: /app/screenshots
   session-max-hours: 4
+  navigation-timeout-ms: 20000
+  screenshot-retention-hours: 48
 
 notification:
   whatsapp:

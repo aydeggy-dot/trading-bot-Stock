@@ -224,7 +224,7 @@ class EndToEndFlowTest {
 
         @BeforeEach
         void setUp() {
-            otpHandler = new OtpHandler(notificationRouter);
+            otpHandler = new OtpHandler(notificationRouter, null);
         }
 
         @Test
